@@ -1,0 +1,53 @@
+{% extends "base.html.twig" %}
+{% block stylesheets %}
+	<link rel="stylesheet" href="{{bootstrapCss}}">
+{% endblock %}
+{% block body %}
+	{# <h1> Hello {{bootstrapCss}} </h1>
+	<h1> Hello {{bootstrapbundleJs}} </h1>
+	<h1> Hello {{vueJs}} </h1> #}
+	<div class="btn-group">
+		<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			Action
+		</button>
+		<div class="dropdown-menu">
+			<a class="dropdown-item" href="#">Action</a>
+			<a class="dropdown-item" href="#">Another action</a>
+			<a class="dropdown-item" href="#">Something else here</a>
+			<div class="dropdown-divider"></div>
+			<a class="dropdown-item" href="#">Separated link</a>
+		</div>
+	</div>
+	
+</div>
+{% endblock %}
+{% block javascripts %}
+	<script src="{{jqueryJs}}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{popperJs}}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{bootstrapJs}}" type="text/javascript" charset="utf-8"></script>
+	<script src="{{vueJs}}" type="text/javascript" charset="utf-8"></script>
+	<script>
+
+		var vm = Vue.createApp({
+			data(){  //tsy azo avela @ izao raha mbola updatevana fa initialisena a vide !!!
+				return {
+					dirigeants:[],	//initialisation
+					societes:[]
+				}
+			},
+			methods:{
+				updateTags(){
+				
+
+					loadTxtPar("http://127.0.0.1/vue1/myapp1/lab/script6.php",this).then(function(res){
+						var value = res.value;
+						var param = res.param;
+						//alert(value);
+						param.$data.tags = JSON.parse(value);
+					});
+
+				}
+			}
+		}).mount("#myapp");
+	</script>
+{% endblock %}
