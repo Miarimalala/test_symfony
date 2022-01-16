@@ -2,22 +2,27 @@
 
 namespace App\Controller;
 
+use Psr\Log\LoggerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Asset\PathPackage;
 //use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
 use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Routing\RequestContext;
 
 class MainController extends AbstractController
 {
     /**
      * @Route("/singlepage", name="index")
      */
-    public function singlepage()
+    public function singlepage(/*LoggerInterface $logger, Request $request*/)
     {
-        $pathPackage = new PathPackage('asset/', new StaticVersionStrategy('v1.9'));
+
+        //$logger->info($this->container->get('router')->getContext()->getSchemeAndHttpHost());//$_SERVER[]
+        $pathPackage = new PathPackage('asset/', new StaticVersionStrategy('v1.10'));
         //$pathPackage = new PathPackage('asset/', new EmptyVersionStrategy());
-        
+        //RequestContext
         return $this->render("main.html.twig", [
             'jqueryJs' => $pathPackage->getUrl('jquery-3.4.1.slim.min.js'),
             'bootstrapCss' => $pathPackage->getUrl('bootstrap.min.css'),
@@ -27,7 +32,8 @@ class MainController extends AbstractController
             'vueJs' => $pathPackage->getUrl('vue@next'),
             'bootstrapIcons' => $pathPackage->getUrl('bootstrap-icons.css'),
             //'vueJs' => $pathPackage->getUrl('vue.min.js'),
-            'customCss' => $pathPackage->getUrl('custom.css')
+            'customCss' => $pathPackage->getUrl('custom.css'),
+            'serverAddress' => 'https://127.0.0.1:8000'
         ]);
     }
 }

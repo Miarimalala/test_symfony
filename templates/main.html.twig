@@ -15,6 +15,40 @@
 
 		.hcb{/*half circle border*/border-radius: 100vh;}
 
+		table {
+            width: 100%;
+        }
+
+        thead, tbody, tr, td, th { display: block; }
+
+        tr:after {
+            content: ' ';
+            display: block;
+            visibility: hidden;
+            clear: both;
+        }
+
+        thead th {
+            height: 30px;
+
+            /*text-align: left;*/
+        }
+
+        tbody {
+            height: 250px;
+            overflow-y: auto;
+        }
+
+        thead {
+            /* fallback */
+        }
+
+		
+        tbody td, thead th {
+            /*width: 30%;*/
+            float: left;
+        }
+		
 	</style>
 {% endblock %}
 {% block body %}
@@ -24,7 +58,7 @@
 		{# <div class="h5"></div> #}
 		<div class="btn-group dropright">
 			<button type="button" class="btn btn-lg btn-secondary hcb mar5px dropdown-toggle" data-toggle="dropdown">
-				<div>Choisir une entit&eacute; : </div>
+				<div>Choisir une entit&eacute; &agrave; tout moment : </div>
 				<label id="entityLabel" class="vh7">Dirigeant</label> 
 				&nbsp;&nbsp;&nbsp;
 				<i class="bi bi-arrow-right-circle" style='font-size:30px;'></i>
@@ -107,7 +141,30 @@
 
 			</div>
 			<div id="dirigeantListe" class="tab-pane fade" role="tabpanel">
-				<h1>Liste Dirigeants</h1>
+				<div class="cnt">
+					<h1 class="text-secondary">Liste de dirigeants</h1>
+				</div>
+				<div id="dirigeantTable"> 
+					{# <div v-for="dirigeant in dirigeantss" @click="updateTags()" class="emt hcb smp" style='color: white;background-color: #336699;'> #}
+					
+					<table class="table table-hover table-dark">
+						<thead>
+							<tr>
+								<th class="w40" scope="col"> Nom et Pr&eacute;noms </th>
+								<th class="w20" scope="col"> Sexe </th>
+								<th class="w40" scope="col"> Adresse mail </th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr v-for="dirigeant in dirigeants">
+								<td class="w40"> ${dirigeant.nomPrenom} </td>
+								<td class="w20"> ${dirigeant.sexe} </td>
+								<td class="w40"> ${dirigeant.adresseMail} </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>	
 			</div>
 			<div id="societeAjout" class="tab-pane fade" role="tabpanel">
 				<h1>Ajout Societe</h1>
@@ -169,7 +226,8 @@
 
 			// Transformez l'objet data en un tableau de paires clé/valeur codées URL.
 			for(name in data) {
-				urlEncodedDataPairs.push("\""+encodeURIComponent(name) + "\":\"" + encodeURIComponent(data[name])+"\"");
+				//urlEncodedDataPairs.push("\""+encodeURIComponent(name) + "\":\"" + encodeURIComponent(data[name])+"\"");
+				urlEncodedDataPairs.push("\""+name + "\":\"" +data[name]+"\"");
 			}
 			//*/
 			// Combinez les paires en une seule chaîne de caractères et remplacez tous
@@ -198,7 +256,13 @@
 			});
 
 			// Configurez la requête
-			XHR.open('POST', 'https://127.0.0.1:8000/ajoutDirigeant');
+			//XHR.open('POST', 'https://127.0.0.1:8000/ajoutDirigeant');
+			//"https:// app.request.baseUrl /listeDirigeants"
+			//var baseu = "app.request.baseUrl";
+			//alert(baseu);
+			//var server = "serverAddress";
+			//alert(">>"+server);
+			XHR.open('POST', '{{serverAddress}}/ajoutDirigeant');
 
 			// Ajoutez l'en-tête HTTP requise pour requêtes POST de données de formulaire
 			//XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');application/json
@@ -282,8 +346,12 @@
 		document.querySelector("#listeWidget").addEventListener("click",function () {
 			activerCommand("listeWidget");
 			const entite = getActiveEntity();
-			if(entite == "dirigeant")activerPane("dirigeantListe");
+			if(entite == "dirigeant"){
+				activerPane("dirigeantListe");
+				vm.listeDirigeants();
+			}
 			else if(entite == "societe")activerPane("societeListe");
+			//li
 
 		});
 		function activerCommand(commandId) {
@@ -327,25 +395,72 @@
 	<script type="text/javascript" charset="utf-8">
 
 		var vm = Vue.createApp({
+			delimiters: ['${', '}'],	//tsy atao mitovy @ twig ny balises
 			data(){  //tsy azo avela @ izao raha mbola updatevana fa initialisena a vide !!!
 				return {
-					dirigeants:[],	//initialisation
-					societes:[]
+					dirigeants:[]
 				}
 			},
 			methods:{
-				updateTags(){
-				
+				listeDirigeants(){
+					//alert("go , fetch all dirigeants 2 !");
+					//*
+					loadTxtPar('{{serverAddress}}/listeDirigeants',this).then(function(res){
+					//alert("{{ app.request.baseUrl }}");
+					//loadTxtPar("https://{{ app.request.baseUrl }}/listeDirigeants",this).then(function(res){
+						var value = res.value;
+						var param = res.param;
+						//alert(value);
+						param.$data.dirigeants = JSON.parse(value);
+					});
+					//*/
 
+				}
+			}
+		}).mount("#dirigeantTable");
+		/*
+		var vm2 = Vue.createApp({
+			delimiters: ['${', '}'],
+			data(){  //tsy azo avela @ izao raha mbola updatevana fa initialisena a vide !!!
+				return {
+					dirigeants:[]
+				}
+			},
+			methods:{
+				listerDirigeants(){
+					alert("go , fetch all dirigeants !");
+					
 					loadTxtPar("http://127.0.0.1/vue1/myapp1/lab/script6.php",this).then(function(res){
 						var value = res.value;
 						var param = res.param;
 						//alert(value);
 						param.$data.tags = JSON.parse(value);
 					});
+					
 
 				}
 			}
-		}).mount("#myapp");
+		}).mount("#societeTable");
+		*/
+		function loadTxt(url) {
+			return new Promise(function (resolve) {
+				var request = new XMLHttpRequest();
+				request.onreadystatechange = function() {
+					if (request.readyState === 4 & request.status != 404)
+						resolve(request.responseText);
+				}
+				request.open('GET', url, true);
+				request.setRequestHeader("Cache-Control","no-cache,no-store");
+				request.send();
+			});
+		}
+
+		function loadTxtPar(url,param) {
+			return new Promise(function (resolve) {
+				loadTxt(url).then(function(value){	// value is an image here
+					resolve({"value":value,"param":param});	//passer le parametre
+				});
+			});
+		}
 	</script>
 {% endblock %}
