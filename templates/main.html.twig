@@ -24,6 +24,7 @@
 		{# <div class="h5"></div> #}
 		<div class="btn-group dropright">
 			<button type="button" class="btn btn-lg btn-secondary hcb mar5px dropdown-toggle" data-toggle="dropdown">
+				<div>Choisir une entit&eacute; : </div>
 				<label id="entityLabel" class="vh7">Dirigeant</label> 
 				&nbsp;&nbsp;&nbsp;
 				<i class="bi bi-arrow-right-circle" style='font-size:30px;'></i>
@@ -57,8 +58,10 @@
 				<div class="cnt">
 					<h1 class="text-secondary">Ajouter un dirigeant</h1>
 				</div>
-				
-				<form>
+				{# ***************************************************************** #}
+				{# *********************DEBUT FORMULAIRE AJOUT DIRIGEANT************ #}
+				{# ***************************************************************** #}
+				<div>{# element form changee en element div #}
 					<label for="nomPrenom" class="form-label">Nom et Pr&eacute;noms : </label>
 					<div class="input-group">
 						<span class="input-group-text w100">
@@ -73,44 +76,35 @@
 						<span class="input-group-text w100">
 							{# <i class="bi bi-person-circle"></i> #}
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+								<input class="form-check-input" type="radio" name="sexeRadioOptions" id="inlineRadio1" value="homme">
 								<label class="form-check-label" for="inlineRadio1">Homme</label>
 								<i class="bi bi-gender-male"></i>
 							</div>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 							<div class="form-check form-check-inline">
-								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+								<input class="form-check-input" type="radio" name="sexeRadioOptions" id="inlineRadio2" value="femme">
 								<label class="form-check-label" for="inlineRadio2">Femme</label>
 								<i class="bi bi-gender-female"></i>
 							</div>
 						</span>
 					</div>
 					<br>
-					<label for="email" class="form-label">Adresse mail : </label>
+					<label for="adresseMail" class="form-label">Adresse mail : </label>
 					<div class="input-group">
 						<span class="input-group-text w100">
 							<i class="bi bi-envelope"></i>
-							<input type="text" id="email" class="form-control" placeholder="Enter email">
+							<input type="text" id="adresseMail" class="form-control" placeholder="Enter email">
 						</span>
 					</div>
 
-					
-					
-
-{# 
-<div class="custom-control custom-radio custom-control-inline">
-  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
-  <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
-</div>
-<div class="custom-control custom-radio custom-control-inline">
-  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
-  <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
-</div> #}
-
-
 					<br>
-					<button class="btn btn-primary">Ajouter</button>
-				</form>
+					<button class="btn btn-primary" onclick="ajouterDirigeant()" >Ajouter</button>
+				{# ***************************************************************** #}
+				{# *********************FIN FORMULAIRE AJOUT DIRIGEANT************** #}
+				{# ***************************************************************** #}
+				</div>{# element form changee en element div #}
+
+
 			</div>
 			<div id="dirigeantListe" class="tab-pane fade" role="tabpanel">
 				<h1>Liste Dirigeants</h1>
@@ -125,6 +119,18 @@
 	</div>
 	<div class="horizonMargin"></div>
 
+	{# ***************************************************************** #}
+	{# *********************MODAL*************************************** #}
+	{# ***************************************************************** #}
+
+	{# <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-sm">Small modal</button> #}
+	<div id="myModal" class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content cnt">
+			Ajout&eacute; avec succ&egrave;s
+		</div>
+	</div>
+	</div>
 
 {% endblock %}
 {% block javascripts %}
@@ -133,6 +139,81 @@
 	<script src="{{bootstrapJs}}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{vueJs}}" type="text/javascript" charset="utf-8"></script>
 	<script type="text/javascript" charset="utf-8">
+
+		{# ***************************************************************** #}
+		{# *********************AJAX***************************************** #}
+		{# ***************************************************************** #}
+
+		function ajouterDirigeant() {
+			//alert("tonga77 ! ");
+
+			//var data = "[{ \'id\':4, \'nom_prenom\':\'Naivo\', \'adresseMail\':\'naivoyahoo.fr\', \'sexe\':\'homme\' }]";
+			/*
+			var data = { 
+				//'id':4 , 
+				'nomPrenom':'Randria', //mety daholo na nomPrenom na nom_prenom
+				'adresse_mail':'randria@gmail.fr', 
+				'sexe':'homme' 
+			};
+			*/
+			var data = new Object();
+			data.nomPrenom = document.getElementById("nomPrenom").value;
+			data.sexe = document.querySelector('input[name="sexeRadioOptions"]:checked').value;
+			data.adresseMail = document.getElementById("adresseMail").value;
+
+			var XHR = new XMLHttpRequest();
+			//*
+			var urlEncodedData = "";
+			var urlEncodedDataPairs = [];
+			var name;
+
+			// Transformez l'objet data en un tableau de paires clé/valeur codées URL.
+			for(name in data) {
+				urlEncodedDataPairs.push("\""+encodeURIComponent(name) + "\":\"" + encodeURIComponent(data[name])+"\"");
+			}
+			//*/
+			// Combinez les paires en une seule chaîne de caractères et remplacez tous
+			// les espaces codés en % par le caractère'+' ; cela correspond au comportement
+			// des soumissions de formulaires de navigateur.
+			//urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
+			urlEncodedData = urlEncodedDataPairs.join(',');//.replace(/%20/g, '+');
+			urlEncodedData = "{"+urlEncodedData+"}";
+			//console.log(urlEncodedData);
+
+
+			// Définissez ce qui se passe en cas de succès de soumission de données
+			XHR.addEventListener('load', function(event) {
+				//alert('Ouais ! Données envoyées et réponse chargée.');
+				document.getElementById("nomPrenom").value = "";
+				document.getElementById("adresseMail").value = "";
+				$('#myModal').modal({
+					keyboard: true
+				});
+				//ovaina modal !
+			});
+
+			// Définissez ce qui arrive en cas d'erreur
+			XHR.addEventListener('error', function(event) {
+				alert('Oups! Quelque chose s\'est mal passé.');
+			});
+
+			// Configurez la requête
+			XHR.open('POST', 'https://127.0.0.1:8000/ajoutDirigeant');
+
+			// Ajoutez l'en-tête HTTP requise pour requêtes POST de données de formulaire
+			//XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');application/json
+
+			XHR.setRequestHeader('Content-Type', 'application/json');
+
+			// Finalement, envoyez les données.
+			//XHR.send(data);
+			XHR.send(urlEncodedData);
+		}
+
+		{# ***************************************************************** #}
+		{# *******************LAYOUT**************************************** #}
+		{# ***************************************************************** #}
+
 		setLayout();
 
 		function setLayout() {
@@ -166,6 +247,7 @@
 		}
 
 		{# ***************************************************************** #}
+		{# *********************GUI***************************************** #}
 		{# ***************************************************************** #}
 
 		function getActiveEntity() {	//dirigeant ou societe
