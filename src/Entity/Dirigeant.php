@@ -20,55 +20,55 @@ class Dirigeant
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nomDirigeant;
-
-    /**
-     * @ORM\Column(type="string", length=50, nullable=true)
-     */
-    private $sexeDirigeant;
+    private $nomPrenom;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $mailDirigeant;
+    private $adresseMail;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $sexe;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getNomDirigeant(): ?string
+    public function getNomPrenom(): ?string
     {
-        return $this->nomDirigeant;
+        return $this->nomPrenom;
     }
 
-    public function setNomDirigeant(string $nomDirigeant): self
+    public function setNomPrenom(string $nomPrenom): self
     {
-        $this->nomDirigeant = $nomDirigeant;
+        $this->nomPrenom = $nomPrenom;
 
         return $this;
     }
 
-    public function getSexeDirigeant(): ?string
+    public function getAdresseMail(): ?string
     {
-        return $this->sexeDirigeant;
+        return $this->adresseMail;
     }
 
-    public function setSexeDirigeant(?string $sexeDirigeant): self
+    public function setAdresseMail(?string $adresseMail): self
     {
-        $this->sexeDirigeant = $sexeDirigeant;
+        $this->adresseMail = $adresseMail;
 
         return $this;
     }
 
-    public function getMailDirigeant(): ?string
+    public function getSexe(): ?string
     {
-        return $this->mailDirigeant;
+        return $this->sexe;
     }
 
-    public function setMailDirigeant(?string $mailDirigeant): self
+    public function setSexe(?string $sexe): self
     {
-        $this->mailDirigeant = $mailDirigeant;
+        $this->sexe = $sexe;
 
         return $this;
     }

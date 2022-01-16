@@ -5,17 +5,18 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Asset\PathPackage;
-use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+//use Symfony\Component\Asset\VersionStrategy\EmptyVersionStrategy;
+use Symfony\Component\Asset\VersionStrategy\StaticVersionStrategy;
 
 class MainController extends AbstractController
 {
     /**
-     * @Route("/", name="index")
+     * @Route("/singlepage", name="index")
      */
     public function singlepage()
     {
-        
-        $pathPackage = new PathPackage('asset/', new EmptyVersionStrategy());
+        $pathPackage = new PathPackage('asset/', new StaticVersionStrategy('v1.9'));
+        //$pathPackage = new PathPackage('asset/', new EmptyVersionStrategy());
         
         return $this->render("main.html.twig", [
             'jqueryJs' => $pathPackage->getUrl('jquery-3.4.1.slim.min.js'),
@@ -23,7 +24,10 @@ class MainController extends AbstractController
             'bootstrapbundleJs' => $pathPackage->getUrl('bootstrap.bundle.min.js'),
             'bootstrapJs' => $pathPackage->getUrl('bootstrap.min.js'),
             'popperJs' => $pathPackage->getUrl('popper.min.js'),
-            'vueJs' => $pathPackage->getUrl('vue.min.js')
+            'vueJs' => $pathPackage->getUrl('vue@next'),
+            'bootstrapIcons' => $pathPackage->getUrl('bootstrap-icons.css'),
+            //'vueJs' => $pathPackage->getUrl('vue.min.js'),
+            'customCss' => $pathPackage->getUrl('custom.css')
         ]);
     }
 }

@@ -1,32 +1,248 @@
 {% extends "base.html.twig" %}
 {% block stylesheets %}
+	<link rel="stylesheet" href="{{customCss}}">
 	<link rel="stylesheet" href="{{bootstrapCss}}">
+	<link rel="stylesheet" href="{{bootstrapIcons}}">
+	<style type="text/css">
+		body {
+			display: flex;
+			flex-direction: row;
+		}
+		#mainContainer {
+			display: flex;
+			flex-direction: column;
+		}
+
+		.hcb{/*half circle border*/border-radius: 100vh;}
+
+	</style>
 {% endblock %}
 {% block body %}
-	{# <h1> Hello {{bootstrapCss}} </h1>
-	<h1> Hello {{bootstrapbundleJs}} </h1>
-	<h1> Hello {{vueJs}} </h1> #}
-	<div class="btn-group">
-		<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-			Action
-		</button>
-		<div class="dropdown-menu">
-			<a class="dropdown-item" href="#">Action</a>
-			<a class="dropdown-item" href="#">Another action</a>
-			<a class="dropdown-item" href="#">Something else here</a>
-			<div class="dropdown-divider"></div>
-			<a class="dropdown-item" href="#">Separated link</a>
+
+	<div class="horizonMargin"></div>
+	<div id="mainContainer" class="">
+		{# <div class="h5"></div> #}
+		<div class="btn-group dropright">
+			<button type="button" class="btn btn-lg btn-secondary hcb mar5px dropdown-toggle" data-toggle="dropdown">
+				<label id="entityLabel" class="vh7">Dirigeant</label> 
+				&nbsp;&nbsp;&nbsp;
+				<i class="bi bi-arrow-right-circle" style='font-size:30px;'></i>
+			</button>
+			{# ***************************************************************** #}
+			{# ***************************************************************** #}
+			<div class="dropdown-menu">
+				<button id="dirigeantWidget" class="dropdown-item vh5 active" type="button">Dirigeant</button>
+    			<button id="societeWidget" class="dropdown-item vh5" type="button">Soci&eacute;t&eacute;</button>
+			</div>
+		</div>
+
+
+{# ***************************************************************** #}
+{# ***************************************************************** #}
+{# ***************************************************************** #}
+{# ***************************************************************** #}
+
+		<ul class="nav nav-pills nav-fill mar5px">
+			<li class="nav-item">
+				<button id="ajoutWidget" class="nav-link vh5 active" type="button">Ajout</button>
+			</li>
+			<li class="nav-item">
+				<button id="listeWidget" class="nav-link vh5" type="button">Liste</button>
+			</li>
+		</ul>
+		{# ***************************************************************** #}
+		{# ***************************************************************** #}
+		<div class="tab-content  mar5px">
+			<div id="dirigeantAjout" class="tab-pane fade show active" role="tabpanel">
+				<div class="cnt">
+					<h1 class="text-secondary">Ajouter un dirigeant</h1>
+				</div>
+				
+				<form>
+					<label for="nomPrenom" class="form-label">Nom et Pr&eacute;noms : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-person-circle"></i>
+							<input type="text" id="nomPrenom" class="form-control" placeholder="e.g. Rakoto">
+						</span>
+					</div>
+					<br>
+					<label for="sexe" class="form-label">Sexe : </label>
+					<br>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							{# <i class="bi bi-person-circle"></i> #}
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+								<label class="form-check-label" for="inlineRadio1">Homme</label>
+								<i class="bi bi-gender-male"></i>
+							</div>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+							<div class="form-check form-check-inline">
+								<input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2">
+								<label class="form-check-label" for="inlineRadio2">Femme</label>
+								<i class="bi bi-gender-female"></i>
+							</div>
+						</span>
+					</div>
+					<br>
+					<label for="email" class="form-label">Adresse mail : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-envelope"></i>
+							<input type="text" id="email" class="form-control" placeholder="Enter email">
+						</span>
+					</div>
+
+					
+					
+
+{# 
+<div class="custom-control custom-radio custom-control-inline">
+  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadioInline1">Toggle this custom radio</label>
+</div>
+<div class="custom-control custom-radio custom-control-inline">
+  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadioInline2">Or toggle this other custom radio</label>
+</div> #}
+
+
+					<br>
+					<button class="btn btn-primary">Ajouter</button>
+				</form>
+			</div>
+			<div id="dirigeantListe" class="tab-pane fade" role="tabpanel">
+				<h1>Liste Dirigeants</h1>
+			</div>
+			<div id="societeAjout" class="tab-pane fade" role="tabpanel">
+				<h1>Ajout Societe</h1>
+			</div>
+			<div id="societeListe" class="tab-pane fade" role="tabpanel">
+				<h1>Liste Societe</h1>
+			</div>
 		</div>
 	</div>
-	
-</div>
+	<div class="horizonMargin"></div>
+
+
 {% endblock %}
 {% block javascripts %}
 	<script src="{{jqueryJs}}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{popperJs}}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{bootstrapJs}}" type="text/javascript" charset="utf-8"></script>
 	<script src="{{vueJs}}" type="text/javascript" charset="utf-8"></script>
-	<script>
+	<script type="text/javascript" charset="utf-8">
+		setLayout();
+
+		function setLayout() {
+			if(clientOrientationPortrait()){
+				//alert("portrait");
+				classAddClass("horizonMargin","w5");
+				idAddClass("mainContainer","w90");
+			}else{
+				//alert("landscape");
+				classAddClass("horizonMargin","w25");
+				idAddClass("mainContainer","w50");
+			}
+		}
+		function clientOrientationPortrait(){	//portrait par defaut
+			return document.body.clientHeight > document.body.clientWidth;
+		}
+		function classAddClass(cName,cAdd){
+			var elems = document.getElementsByClassName(cName);
+			for(var i = 0;i<elems.length;i++)addClass(elems[i],cAdd);
+		}
+		function idAddClass(elemId, className) {
+			addClass(document.getElementById(elemId),className);
+		}
+		function hasClass(elem, className) {
+			return new RegExp(' ' + className + ' ').test(' ' + elem.className + ' ');
+		}
+		function addClass(elem, className) {
+			if (!hasClass(elem, className)) {
+				elem.className += ' ' + className;
+			}
+		}
+
+		{# ***************************************************************** #}
+		{# ***************************************************************** #}
+
+		function getActiveEntity() {	//dirigeant ou societe
+			if(document.getElementById("societeWidget").classList.contains("active"))return "societe";
+			else return "dirigeant";
+		}
+
+		function getActiveCommand() {	//ajout ou liste
+			if(document.getElementById("ajoutWidget").classList.contains("active"))return "ajout";
+			else return "liste";
+		}
+
+		document.querySelector("#dirigeantWidget").addEventListener("click",function () {
+			activerOption(this);
+			const command = getActiveCommand();
+			if(command == "ajout")activerPane("dirigeantAjout");
+			else if(command == "liste")activerPane("dirigeantListe");
+		});
+		document.querySelector("#societeWidget").addEventListener("click",function () {
+			activerOption(this);
+			const command = getActiveCommand();
+			if(command == "ajout")activerPane("societeAjout");
+			else if(command == "liste")activerPane("societeListe");
+		});
+		document.querySelector("#ajoutWidget").addEventListener("click",function () {
+			activerCommand("ajoutWidget");
+			const entite = getActiveEntity();
+			if(entite == "dirigeant")activerPane("dirigeantAjout");
+			else if(entite == "societe")activerPane("societeAjout");
+
+		});
+		document.querySelector("#listeWidget").addEventListener("click",function () {
+			activerCommand("listeWidget");
+			const entite = getActiveEntity();
+			if(entite == "dirigeant")activerPane("dirigeantListe");
+			else if(entite == "societe")activerPane("societeListe");
+
+		});
+		function activerCommand(commandId) {
+			const commands = document.querySelectorAll(".nav-link");
+			commands.forEach(command => {	//esorina daholo ny maha active
+			//alert("4");
+				command.classList.remove("active");
+				//command.classList.remove("show");
+			});
+			document.getElementById(commandId).classList.add("active");
+		}
+		function activerOption(elem) {
+			document.getElementById("entityLabel").innerHTML = elem.innerHTML;
+			//document.getElementById("dirigeantWidget").classList.remove("active");
+			const options = document.querySelectorAll(".dropdown-item");
+			options.forEach(option => {	//esorina daholo ny maha active
+				//alert("2");
+				option.classList.remove("active");
+				//tab.classList.remove("show");
+			});
+			elem.classList.add("active");
+			//alert("tonga88");
+		}
+		function activerPane(paneId) {
+			const tabs = document.querySelectorAll(".tab-pane");
+			tabs.forEach(tab => {	//esorina daholo ny maha active
+			//alert("4");
+				tab.classList.remove("active");
+				tab.classList.remove("show");
+			});
+			//ajout societe no tab sokafana
+			document.getElementById(paneId).classList.add("active");
+			document.getElementById(paneId).classList.add("show");
+		}
+/*
+		$("#dirigeantOption").click(function () {
+			$("#entityLabel > label").
+			alert("dirigeant !");
+		});*/
+	</script>
+	<script type="text/javascript" charset="utf-8">
 
 		var vm = Vue.createApp({
 			data(){  //tsy azo avela @ izao raha mbola updatevana fa initialisena a vide !!!

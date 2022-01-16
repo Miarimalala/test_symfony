@@ -1,0 +1,241 @@
+
+html{
+	/*font-size:62.5%;*/
+	/*font-family:'MyWebFont';*/
+}
+
+/*
+.fvv{ font-size:10%; }
+*/
+.cnt{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+/*
+.mName{
+	text-align:center;
+	align-items:center;
+	justify-content:center;
+	font-size:2rem;
+}
+*/
+
+.overflowscroll			{ overflow:auto; }
+
+.fill					{ display:block; width:100%; height:100%; } 
+.dNone					{ display:none; }
+.dBlock					{ display:block; }
+.dIBlock				{ display:inline-block; }
+.showPane {
+	display:inline-block;
+	/* position:absolute; absolute foana ny hidePane sy showPane , fa na izany aza tsy tsara atao ato ito, dia commente-ko*/
+	left:0;	
+	top:0;
+	width:100%;
+	height:100%;
+	/*border-radius:5%;*/
+}
+/*
+.sho					{ width:100%; height:100%;}
+*/
+.hidePane{	/*omanina hanao slide eo @ sisiny */
+	display:inline-block;	/*aza hadino fa absolue ny right eto => rehefa mitombo ny width dia mikisaka miankavia ho azy !!!*/
+	/* position:absolute; absolute foana ny hidePane sy showPane , fa na izany aza tsy tsara atao ato ito, dia commente-ko*/
+	left:50%;
+	top:50%;
+	width:0;
+	height:0;
+	/*border-radius:50%;*/
+}
+
+
+
+/*************************************************/
+/******************** ANIMATION ******************/
+/*************************************************/
+
+.toForeground2	{ animation:fadeInAnim2 var(--slideAnimDuration) ease-in-out; left:0; top:0; width:100%; height:100%; opacity:var(--foreOpacity); }
+@keyframes fadeInAnim2{
+	0%			{ left:50%; top:50%; width:0; height:0; opacity:0.0; border-radius:50%; }
+	100%		{ left:0; top:0; width:100%; height:100%; opacity:var(--foreOpacity); border-radius:0%; }
+}
+.toForeground	{ animation:fadeInAnim var(--slideAnimDuration) ease-in-out; left:0; top:0; width:100%; height:100%; opacity:1.0; }
+@keyframes fadeInAnim{
+	0%			{ left:50%; top:50%; width:0; height:0; opacity:0.0; border-radius:50%; }
+	100%		{ left:0; top:0; width:100%; height:100%; opacity:1.0; border-radius:0%; }
+}
+/*
+ 
+	0%			{ left:50%; top:50%; width:0; height:0; opacity:0.0; border-radius:50%; }
+	100%		{ left:0; top:0; width:100%; height:100%; opacity:1.0; border-radius:0; }
+ */
+.toBackground2	{ animation:fadeOutAnim2 var(--slideAnimDuration) ease-in-out; left:50%; top:50%; width:0; height:0; opacity:0.0; }
+@keyframes fadeOutAnim2{
+	0%			{ left:0; top:0; width:100%; height:100%; opacity:var(--foreOpacity); border-radius:0%; }
+	100%		{ left:50%; top:50%; width:0; height:0; opacity:0.0; border-radius:50%; }
+}
+.toBackground	{ animation:fadeOutAnim var(--slideAnimDuration) ease-in-out; left:50%; top:50%; width:0; height:0; opacity:0.0; }
+@keyframes fadeOutAnim{
+	0%			{ left:0; top:0; width:100%; height:100%; opacity:1.0; border-radius:0%; }
+	100%		{ left:50%; top:50%; width:0; height:0; opacity:0.0; border-radius:50%; }
+}
+
+/*************************************************/
+/******************** BASICS *********************/
+/*************************************************/
+/*
+.hide					{ left:50%; top:50%; width:0; height:0; }		
+.show					{ left:0; top:0; width:100%; height:100%; }	
+*/
+/*
+.hide					{ width:0; height:0; }		
+*/
+/* no-copiena fotsiny ny final state tao @ toBackground */
+/*
+.show					{ width:100%; height:100%; }	
+*/
+/* ilaina ve ny show ? => tsy ilaina rehefa misy animation toForeground/toBackground => ILAINA REHEFA MIPIKA MALAKY BE !!!*/
+.roundCorner			{ border-radius:10%;}
+.w33h100				{ width:33%; height:100%; }
+.w25h100				{ width:25%; height:100%; }
+.w20h100				{ width:20%; height:100%; }
+.w16h50					{ width:16%; height:50%; }
+.w33h50					{ width:33%; height:50%; }
+.w25h50					{ width:25%; height:50%; }
+.w20h50					{ width:20%; height:50%; }
+.translateY_50			{ transform:translateY(-50%); }
+.translateX_50			{ transform:translateX(-50%); }
+.translateX_55			{ transform:translateX(-55%); }
+.translateY_55			{ transform:translateY(-55%); }
+.translateY_100			{ transform:translateY(-100%); }
+.translateX_100			{ transform:translateX(-100%); }
+.translateY_150			{ transform:translateY(-150%); }
+.translateX_150			{ transform:translateX(-150%); }
+.translateY50			{ transform:translateY(50%); }
+.translateX50			{ transform:translateX(50%); }
+.translateX25			{ transform:translateX(20%); }
+.translateY100			{ transform:translateY(100%); }
+.translateX100			{ transform:translateX(100%); }
+.translateY150			{ transform:translateY(150%); }
+.translateX150			{ transform:translateX(150%); }
+.l10					{ left:10%; }
+.l50					{ left:50%; }
+.t0						{ top:0%; }
+.t5						{ top:5%; }
+.t25					{ top:25%; }
+.t50					{ top:50%; }
+.w5						{ width:5%; }
+.w25					{ width:25%; }
+.w50					{ width:50%; }
+.h50					{ height:50%;}
+.w90					{ width:90%; }
+.w100					{ width:100%; }
+.h100					{ height:100%;}
+.pure					{ outline:none; padding:0px; margin:0px; }
+.p00					{ top:0; left:0; }
+.l50					{ left:50%; }
+.p50					{ top:50%; left:50%; }
+.p8px					{ top:8px; left:8px; }
+.p100px					{ top:100px; left:100px; }
+.s5						{ width:5%; height:5%;}
+.s10					{ width:10%; height:10%;}	/* convention-ko : ny pourcent tsy asiana unite @ classe */
+.s50					{ width:50%; height:50%;}
+.s00					{ width:0px; height:0px;}
+.s100					{ width:100%; height:100%;}
+.s10px					{ width:10px; height:10px;}	/* convention-ko : ny pixel asiana suffixe 'px' @ classe */	
+.s50px					{ width:50px; height:50px;}
+.s100px					{ width:100px; height:100px;}
+.s128px					{ width:128px; height:128px;}
+.s256px					{ width:256px; height:256px;}
+.s512px					{ width:500px; height:500px;}
+.fitContainer			{ min-width:100%; min-height:100%; max-width:100%; max-height:100%; }
+.pRelative				{ position:relative; }
+.pAbsolute				{ position:absolute; }
+
+/*************************************************/
+/************* COLORS & BACKGROUNDS **************/
+/*************************************************/
+.opacity50				{ opacity:0.5; }
+.opacity30				{ opacity:0.3; }
+.opacity10				{ opacity:0.1; }
+.bg_yellow				{ background-color: #ffcc00; }
+.bg_orange				{ background-color: #ff9900; }
+.bg_green				{ background-color: #99ff00; }
+.bg_imgLogo				{ background-image:url('../img/logo0.png'); background-repeat:no-repeat; background-size:100% 100%; }
+.bg_imgPhotoReelle		{ background-image:url('../img/photoReelle.png'); background-repeat:no-repeat; background-size:100% 100%; opacity:1.0/*0.7*/; }
+
+.bg_imgWm				{ background-image:url('../img/logo0.png'); background-repeat:no-repeat; background-size:100% 100%; opacity:0.2; }/*opacity:0.03*/
+.bg_imgWait				{ background-image:url('../img/wait.png'); background-repeat:no-repeat; background-size:100% 100%; }
+.bg_imgNavigation		{ background-image:url('../img/menu.png'); background-repeat:no-repeat; background-size:100% 100%; }
+.bg_imgMenu				{ background-image:url('../img/menu.png'); background-repeat:no-repeat; background-size: auto 100%; background-position:center; }
+
+.bg_imgMenu				{ background-image:url('../img/cart.png'); background-repeat:no-repeat; background-size:100% 100%; }
+.bg_petitPas			{ background-image:linear-gradient(135deg,#008080,#ffffff,#fcca00);}
+.bg_petitPas1			{ background-image:linear-gradient(135deg,#008080,#ffffff);}
+.bg_gradRedorange		{ background-image:linear-gradient(135deg,red,orange);}
+.bg_gradYelloworange	{ background-image:linear-gradient(135deg,#ffcc00,#ff9900);}
+.bg_gradGreenorange		{ background-image:linear-gradient(135deg,#99ff00,#ff9900);}
+.bg_gradGreenorange50	{ background-image:linear-gradient(135deg,#99ff0088,#ff990088);}
+.bg_gradGO				{ background-image:linear-gradient(45deg,green,orange);}
+.bg_gradOrangered		{ background-image:linear-gradient(135deg,orange,red);}
+.bg_gradBlueorange		{ background-image:linear-gradient(135deg,blue,orange);}
+.bg_gradOrangeblue		{ background-image:linear-gradient(135deg,orange,blue);}
+.bg_spring				{ background-color: var(--spring1h); }
+.bg_white				{ background-color: #ffffff; }	/*tsy mety atao background ny white ??? , mety fa mila natao reload ilay css vao no-considere-ny*/
+.bg_pink				{ background-color: var(--pink1h); }
+.pink					{ color: var(--pink1h); }
+/*.bg_azure				{ background-color: var(--azure2h); }*/
+.bg_azure				{ background-color: #66ccff; }
+.azure					{ color: var(--azure2h); }
+.bg_gray				{ background-color: #888888; }
+.bg_gray_e				{ background-color: #eeeeee; }
+.bg_gray_d				{ background-color: #dddddd; }
+.bg_gray_c				{ background-color: #cccccc; }
+.bg_transparent		    { background-color: #00000000; }
+.bg_darkblue			{ background-color: #002c2cff; }/*{ background-image:linear-gradient(135deg,#002c2c,#008080,#000505);}*/
+
+.mar5px{
+	margin: 5px;
+}
+
+.rem8{ font-size:8rem; }
+.rem7{ font-size:7rem; }
+.rem6{ font-size:6rem; }
+.rem5{ font-size:5rem; }
+.rem4{ font-size:4rem; }
+.rem3{ font-size:3rem; }
+.vh5 { font-size:5vh; }
+.vh7 { font-size:7vh; }
+.vh10{ font-size:10vh; }
+/*.myfont					{ font-family:'MyWebFont'; }*/
+/*
+@font-face{
+	font-family:'MyWebFont';
+	src:url('ft') format('truetype'); efa ao @ dossier misy ilay css isika izao
+}
+*/
+:root{
+	--pink1a:#990066;
+	--pink1b:#cc0099;
+	--pink1c:#ff00cc;
+	--pink1d:#cc3399;
+	--pink1e:#ff33cc;
+	--pink1f:#ff0099;
+	--pink1g:#660033;
+	--pink1h:#ff66cc;
+	
+	--azure2a:#006699;
+	--azure2b:#0099cc;
+	--azure2c:#00ccff;
+	--azure2d:#3399cc;
+	--azure2e:#33ccff;
+	--azure2f:#0099ff;
+	--azure2g:#336699;
+	--azure2h:#66ccff;
+	
+	--spring1h:#99ff66;
+	
+	--foreOpacity:0.9;
+	--slideAnimDuration:1000ms;
+}
