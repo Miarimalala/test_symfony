@@ -38,11 +38,11 @@ Visitez l'url ```https://127.0.0.1:8000/singlepage``` dans votre navigateur
 ## Information sur l'application
 L'application permet d'envoyer et de lister le données de 2 différentes entités (dirigeant et société) sur une seule page
 ## Technologies utilisés:
--Symfony
--Bootstrap
--Vue.js
--Mysql (MariaDB)
--Vanilla PHP, Javascript, CSS
+- Symfony
+- Bootstrap
+- Vue.js
+- Mysql (MariaDB)
+- Vanilla PHP, Javascript, CSS
 
 # Auteur de l'appli
 ```
