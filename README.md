@@ -25,17 +25,16 @@ symfony console doctrine:migrations:migrate
 symfony serve
 ```
 # Lancez l'application
-visitez l'url ```https://127.0.0.1:8000/singlepage``` dans votre navigateur
+
+Visitez l'url ```https://127.0.0.1:8000/singlepage``` dans votre navigateur
+
 ![Capture d’écran de 2022-01-17 04-53-08](https://user-images.githubusercontent.com/96646993/149689184-a2fd584c-4cda-40f4-bd4d-d706a7908965.png)
 
-## Choisissez l'entité dirigeant ou société 
-avec le bouton du haut
-## Choisissez l'onglet ajout ou liste
-avec les boutons Ajout ou Liste
-## L'onglet Ajout
-permet de remplir les formulaires Dirigeant ou Société et entrer les données dans la base de données
-## L'onglet Liste
-permet de voir les listes des dirigeants et/ou des sociétés que vous avez entrés
+## Choisissez l'entité dirigeant ou société avec le bouton du haut
+## Choisissez l'onglet ajout ou liste avec les boutons Ajout ou Liste
+## L'onglet Ajout permet de remplir les formulaires Dirigeant ou Société et entrer les données dans la base de données
+## L'onglet Liste permet de voir les listes des dirigeants et/ou des sociétés que vous avez entrés
+
 ## Information sur l'application
 L'application permet d'envoyer et de lister le données de 2 différentes entités (dirigeant et société) sur une seule page
 ## Technologies utilisés:
@@ -44,6 +43,7 @@ L'application permet d'envoyer et de lister le données de 2 différentes entit�
 -Vue.js
 -Mysql (MariaDB)
 -Vanilla PHP, Javascript, CSS
+
 # Auteur de l'appli
 ```
 RAZAFIMANAMPY Miarimalala Tokinambinina
