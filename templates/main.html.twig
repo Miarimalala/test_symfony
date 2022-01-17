@@ -145,8 +145,6 @@
 					<h1 class="text-secondary">Liste de dirigeants</h1>
 				</div>
 				<div id="dirigeantTable"> 
-					{# <div v-for="dirigeant in dirigeantss" @click="updateTags()" class="emt hcb smp" style='color: white;background-color: #336699;'> #}
-					
 					<table class="table table-hover table-dark">
 						<thead>
 							<tr>
@@ -167,10 +165,88 @@
 				</div>	
 			</div>
 			<div id="societeAjout" class="tab-pane fade" role="tabpanel">
-				<h1>Ajout Societe</h1>
+				<div class="cnt">
+					<h1 class="text-secondary">Ajouter une Soci&eacute;t&eacute; </h1>
+				</div>
+				{# ***************************************************************** #}
+				{# *********************DEBUT FORMULAIRE AJOUT SOCIETE************** #}
+				{# ***************************************************************** #}
+				<div>{# element form changee en element div #}
+					<label for="nomSociete" class="form-label">Nom de la Soci&eacute;t&eacute; : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-building"></i>
+							<input type="text" id="nomSociete" class="form-control" placeholder="Nom de la Societe">
+						</span>
+					</div>
+					<br>
+					<label for="descriptionSociete" class="form-label">Description de la soci&eacute;t&eacute; : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-chat-left-text"></i>
+							<textarea class="form-control" id="descriptionSociete" rows="3"></textarea>
+						</span>
+					</div>
+					<br>
+					<label for="typeSociete" class="form-label">Type de la Soci&eacute;t&eacute; : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-check-2-square"></i>
+							<input type="text" id="typeSociete" class="form-control" placeholder="Type de la Societe">
+						</span>
+					</div>
+					<br>
+					<label for="codePostal" class="form-label"> Code Postal : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-mailbox"></i>
+							<input type="text" id="codePostal" class="form-control" placeholder="Code Postal">
+						</span>
+					</div>
+					<br>
+					<label for="ville" class="form-label"> Ville : </label>
+					<div class="input-group">
+						<span class="input-group-text w100">
+							<i class="bi bi-geo-alt"></i>
+							<input type="text" id="ville" class="form-control" placeholder="Ville">
+						</span>
+					</div>
+					<br>
+					<button class="btn btn-primary" onclick="ajouterSociete()" >Ajouter</button>
+				{# ***************************************************************** #}
+				{# *********************FIN FORMULAIRE AJOUT SOCIETE**************** #}
+				{# ***************************************************************** #}
+				</div>{# element form changee en element div #}
+
+
 			</div>
 			<div id="societeListe" class="tab-pane fade" role="tabpanel">
-				<h1>Liste Societe</h1>
+				<div class="cnt">
+					<h1 class="text-secondary">Liste de soci&eacute;t&eacute;s</h1>
+				</div>
+				<div id="societeTable"> 
+					<table class="table table-hover table-dark">
+						<thead>
+							<tr>
+								<th class="w20" scope="col"> Nom </th>
+								<th class="w30" scope="col"> Description </th>
+								<th class="w20" scope="col"> Type </th>
+								<th class="w10" scope="col"> CodeP </th>
+								<th class="w20" scope="col"> Ville </th>
+							</tr>
+						</thead>
+
+						<tbody>
+							<tr v-for="societe in societes">
+								<td class="w20"> ${societe.nomSociete} </td>
+								<td class="w30"> ${societe.descriptionSociete} </td>
+								<td class="w20"> ${societe.typeSociete} </td>
+								<td class="w10"> ${societe.codePostal} </td>
+								<td class="w20"> ${societe.ville} </td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -202,41 +278,22 @@
 		{# ***************************************************************** #}
 
 		function ajouterDirigeant() {
-			//alert("tonga77 ! ");
 
-			//var data = "[{ \'id\':4, \'nom_prenom\':\'Naivo\', \'adresseMail\':\'naivoyahoo.fr\', \'sexe\':\'homme\' }]";
-			/*
-			var data = { 
-				//'id':4 , 
-				'nomPrenom':'Randria', //mety daholo na nomPrenom na nom_prenom
-				'adresse_mail':'randria@gmail.fr', 
-				'sexe':'homme' 
-			};
-			*/
 			var data = new Object();
 			data.nomPrenom = document.getElementById("nomPrenom").value;
 			data.sexe = document.querySelector('input[name="sexeRadioOptions"]:checked').value;
 			data.adresseMail = document.getElementById("adresseMail").value;
 
 			var XHR = new XMLHttpRequest();
-			//*
 			var urlEncodedData = "";
 			var urlEncodedDataPairs = [];
 			var name;
 
-			// Transformez l'objet data en un tableau de paires clé/valeur codées URL.
 			for(name in data) {
-				//urlEncodedDataPairs.push("\""+encodeURIComponent(name) + "\":\"" + encodeURIComponent(data[name])+"\"");
 				urlEncodedDataPairs.push("\""+name + "\":\"" +data[name]+"\"");
 			}
-			//*/
-			// Combinez les paires en une seule chaîne de caractères et remplacez tous
-			// les espaces codés en % par le caractère'+' ; cela correspond au comportement
-			// des soumissions de formulaires de navigateur.
-			//urlEncodedData = urlEncodedDataPairs.join('&').replace(/%20/g, '+');
-			urlEncodedData = urlEncodedDataPairs.join(',');//.replace(/%20/g, '+');
+			urlEncodedData = urlEncodedDataPairs.join(',');
 			urlEncodedData = "{"+urlEncodedData+"}";
-			//console.log(urlEncodedData);
 
 
 			// Définissez ce qui se passe en cas de succès de soumission de données
@@ -247,30 +304,58 @@
 				$('#myModal').modal({
 					keyboard: true
 				});
-				//ovaina modal !
 			});
 
-			// Définissez ce qui arrive en cas d'erreur
 			XHR.addEventListener('error', function(event) {
 				alert('Oups! Quelque chose s\'est mal passé.');
 			});
 
-			// Configurez la requête
-			//XHR.open('POST', 'https://127.0.0.1:8000/ajoutDirigeant');
-			//"https:// app.request.baseUrl /listeDirigeants"
-			//var baseu = "app.request.baseUrl";
-			//alert(baseu);
-			//var server = "serverAddress";
-			//alert(">>"+server);
-			XHR.open('POST', '{{serverAddress}}/ajoutDirigeant');
+			XHR.open('POST', '{{protocol}}{{server}}/ajoutDirigeant');
+			XHR.setRequestHeader('Content-Type', 'application/json');
 
-			// Ajoutez l'en-tête HTTP requise pour requêtes POST de données de formulaire
-			//XHR.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');application/json
+			XHR.send(urlEncodedData);
+		}
+
+
+		function ajouterSociete() {
+			var data = new Object();
+			data.nomSociete = document.getElementById("nomSociete").value;
+			data.descriptionSociete = document.getElementById("descriptionSociete").value;
+			data.typeSociete = document.getElementById("typeSociete").value;
+			data.codePostal = document.getElementById("codePostal").value;
+			data.ville = document.getElementById("ville").value;
+
+			var XHR = new XMLHttpRequest();
+			var urlEncodedData = "";
+			var urlEncodedDataPairs = [];
+			var name;
+
+			for(name in data) {
+				urlEncodedDataPairs.push("\""+name + "\":\"" +data[name]+"\"");
+			}
+			
+			urlEncodedData = urlEncodedDataPairs.join(',');
+			urlEncodedData = "{"+urlEncodedData+"}";
+
+			XHR.addEventListener('load', function(event) {
+				document.getElementById("nomSociete").value = "";
+				document.getElementById("descriptionSociete").value = "";
+				document.getElementById("typeSociete").value = "";
+				document.getElementById("codePostal").value = "";
+				document.getElementById("ville").value = "";
+				$('#myModal').modal({
+					keyboard: true
+				});
+			});
+
+			XHR.addEventListener('error', function(event) {
+				alert('Ajax : Oups! Quelque chose s\'est mal passé.');
+			});
+
+			XHR.open('POST', '{{protocol}}{{server}}/ajoutSociete');
 
 			XHR.setRequestHeader('Content-Type', 'application/json');
 
-			// Finalement, envoyez les données.
-			//XHR.send(data);
 			XHR.send(urlEncodedData);
 		}
 
@@ -282,13 +367,11 @@
 
 		function setLayout() {
 			if(clientOrientationPortrait()){
-				//alert("portrait");
 				classAddClass("horizonMargin","w5");
 				idAddClass("mainContainer","w90");
 			}else{
-				//alert("landscape");
-				classAddClass("horizonMargin","w25");
-				idAddClass("mainContainer","w50");
+				classAddClass("horizonMargin","w20");
+				idAddClass("mainContainer","w60");
 			}
 		}
 		function clientOrientationPortrait(){	//portrait par defaut
@@ -328,13 +411,19 @@
 			activerOption(this);
 			const command = getActiveCommand();
 			if(command == "ajout")activerPane("dirigeantAjout");
-			else if(command == "liste")activerPane("dirigeantListe");
+			else if(command == "liste"){
+				activerPane("dirigeantListe");
+				vm.listeDirigeants();
+			}
 		});
 		document.querySelector("#societeWidget").addEventListener("click",function () {
 			activerOption(this);
 			const command = getActiveCommand();
 			if(command == "ajout")activerPane("societeAjout");
-			else if(command == "liste")activerPane("societeListe");
+			else if(command == "liste"){
+				activerPane("societeListe");
+				vm2.listeSocietes();
+			}
 		});
 		document.querySelector("#ajoutWidget").addEventListener("click",function () {
 			activerCommand("ajoutWidget");
@@ -350,35 +439,29 @@
 				activerPane("dirigeantListe");
 				vm.listeDirigeants();
 			}
-			else if(entite == "societe")activerPane("societeListe");
-			//li
-
+			else if(entite == "societe"){
+				activerPane("societeListe");
+				vm2.listeSocietes();
+			}
 		});
 		function activerCommand(commandId) {
 			const commands = document.querySelectorAll(".nav-link");
 			commands.forEach(command => {	//esorina daholo ny maha active
-			//alert("4");
 				command.classList.remove("active");
-				//command.classList.remove("show");
 			});
 			document.getElementById(commandId).classList.add("active");
 		}
 		function activerOption(elem) {
 			document.getElementById("entityLabel").innerHTML = elem.innerHTML;
-			//document.getElementById("dirigeantWidget").classList.remove("active");
 			const options = document.querySelectorAll(".dropdown-item");
 			options.forEach(option => {	//esorina daholo ny maha active
-				//alert("2");
 				option.classList.remove("active");
-				//tab.classList.remove("show");
 			});
 			elem.classList.add("active");
-			//alert("tonga88");
 		}
 		function activerPane(paneId) {
 			const tabs = document.querySelectorAll(".tab-pane");
 			tabs.forEach(tab => {	//esorina daholo ny maha active
-			//alert("4");
 				tab.classList.remove("active");
 				tab.classList.remove("show");
 			});
@@ -386,11 +469,7 @@
 			document.getElementById(paneId).classList.add("active");
 			document.getElementById(paneId).classList.add("show");
 		}
-/*
-		$("#dirigeantOption").click(function () {
-			$("#entityLabel > label").
-			alert("dirigeant !");
-		});*/
+
 	</script>
 	<script type="text/javascript" charset="utf-8">
 
@@ -403,45 +482,34 @@
 			},
 			methods:{
 				listeDirigeants(){
-					//alert("go , fetch all dirigeants 2 !");
-					//*
-					loadTxtPar('{{serverAddress}}/listeDirigeants',this).then(function(res){
-					//alert("{{ app.request.baseUrl }}");
-					//loadTxtPar("https://{{ app.request.baseUrl }}/listeDirigeants",this).then(function(res){
+					loadTxtPar('{{protocol}}{{server}}/listeDirigeants',this).then(function(res){
 						var value = res.value;
 						var param = res.param;
 						//alert(value);
 						param.$data.dirigeants = JSON.parse(value);
 					});
-					//*/
-
 				}
 			}
 		}).mount("#dirigeantTable");
-		/*
+		//*
 		var vm2 = Vue.createApp({
 			delimiters: ['${', '}'],
-			data(){  //tsy azo avela @ izao raha mbola updatevana fa initialisena a vide !!!
+			data(){  
 				return {
-					dirigeants:[]
+					societes:[]
 				}
 			},
 			methods:{
-				listerDirigeants(){
-					alert("go , fetch all dirigeants !");
-					
-					loadTxtPar("http://127.0.0.1/vue1/myapp1/lab/script6.php",this).then(function(res){
+				listeSocietes(){
+					loadTxtPar('{{protocol}}{{server}}/listeSocietes',this).then(function(res){
 						var value = res.value;
 						var param = res.param;
-						//alert(value);
-						param.$data.tags = JSON.parse(value);
+						param.$data.societes = JSON.parse(value);
 					});
-					
-
 				}
 			}
 		}).mount("#societeTable");
-		*/
+		//*/
 		function loadTxt(url) {
 			return new Promise(function (resolve) {
 				var request = new XMLHttpRequest();
